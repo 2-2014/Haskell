@@ -1,21 +1,39 @@
-module Agenda () where
+module Agenda (toContact, insertContact, deleteFromContacts, toPerson, insertPerson, deleteFromPersons) where
 
-import Data.Time
+import System.IO
+import Data.List(delete)
 
-type Name = String
-type Number = String
-type Date = Day
-type Contacts = [(Name, Number)]
-type Reminder = [(Date, String)]
+type Contact = (String, String)
+type Agenda = [Contact]
 
-agenda :: Agenda
-agenda=[()]
+data Person = Person{ name :: String
+					, telephone :: String
+					}deriving(Show, Eq)
 
-insertAgenda :: Agenda -> Name -> Number -> Agenda
-insertAgenda [] n t = [(n, t)]
-insertAgenda a n t = a++[(n, t)]
+type Persons = [Person]
 
-deleteFromAgenda :: Agenda -> Name -> Agenda
-deleteFromAgenda [] n = [()]
-deleteFromAgenda a n
-	|
+toContact :: String -> String -> Contact
+toContact name tel = (name, tel)
+
+insertContact :: Agenda -> Contact -> Agenda
+insertContact [] c = c:[]
+insertContact a c = c:a
+
+deleteFromContacts :: Agenda -> Contact -> Agenda
+deleteFromContacts [] c = []
+deleteFromContacts a c = delete c a
+
+
+toPerson :: String -> String -> Person
+toPerson n t = Person{name = n, telephone = t} 
+
+insertPerson :: Persons -> Person -> Persons
+insertPerson [] p = p:[]
+insertPerson ps p = p:ps
+
+deleteFromPersons :: Persons -> Person -> Persons
+deleteFromPersons [] p = []
+deleteFromPersons ps p = delete p ps
+
+exportPersons :: Persons -> IO()
+exportPersons ps = writeFile "OutPersons.txt" (show ps)
