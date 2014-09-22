@@ -1,4 +1,4 @@
-module Agenda (Persons, toPerson, insertPerson, deleteFromPersons, exportPersons, searchPerson, printNamePerson, printTelPerson) where
+module Agenda (Persons, toPerson, insertPerson, deleteFromPersons, exportPersons, searchPerson, printNamePerson, printTelPerson, printPerson, printPersons) where
 
 import System.IO
 import Data.List(delete)
@@ -26,8 +26,28 @@ exportPersons ps = writeFile "OutPersons.txt" (show ps)
 searchPerson :: Eq a => [a] -> a -> Bool
 searchPerson ps p = elem p ps
 
-printNamePerson :: Person -> IO()
-printNamePerson p = putStr (name p)
+printNamePerson :: Person -> String
+printNamePerson p = name p
 
-printTelPerson :: Person -> IO()
-printTelPerson p = putStr (telephone p)
+printTelPerson :: Person -> String
+printTelPerson p = telephone p
+
+printPerson :: Person -> String
+printPerson p = printNamePerson p ++ " " ++ printTelPerson p
+
+printPersons :: Persons -> String
+printPersons [] = ""
+printPersons (h:t) = printPerson h ++ "\n" ++ printPersons t
+
+{- parse error on input ‘if’
+
+importPersons :: Handler -> Persons -> Persons
+importPersons inh ps = 
+	do ineof <- hIsEOF inh
+		if ineof
+			then return ps
+			else do name <- hGetLine inh
+					tel <- hGetLine inh
+					ps = insertPerson inpStr
+					importPersons inh ps
+-}

@@ -1,7 +1,7 @@
 module Main where
 
 import System.IO
-import Agenda (Persons, toPerson, insertPerson, deleteFromPersons, exportPersons, searchPerson)
+import Agenda (Persons, toPerson, insertPerson, deleteFromPersons, exportPersons, searchPerson, printPersons)
 
 menu :: Persons -> IO()
 menu persons = do
@@ -39,7 +39,7 @@ menu persons = do
 			putStr ("Contato adicionado: " ++show name++"\n")
 			menu agenda
 
-		{-|c=='2' = do
+		|c=='2' = do
 			putStr("Digite o nome do contato a ser deletado: ")
 			name <- getLine
 			name <- getLine
@@ -48,10 +48,14 @@ menu persons = do
 			tel <- getLine
 			
 			let person = toPerson name tel
-		-}
+
+			let aux = deleteFromPersons persons person
+
+			menu aux
 
 		|c=='3' = do
-			putStr (show persons)
+			putStr ("Nome Telefone\n\n")
+			putStr $ printPersons persons
 			menu persons
 
 		|c=='4' = do
