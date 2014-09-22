@@ -1,7 +1,7 @@
 module Main where
 
 import System.IO
-import Agenda (Persons, toPerson, insertPerson, deleteFromPersons)
+import Agenda (Persons, toPerson, insertPerson, deleteFromPersons, exportPersons, searchPerson)
 
 menu :: Persons -> IO()
 menu persons = do
@@ -10,12 +10,13 @@ menu persons = do
 	putStr("\n1-Adicionar Contato")
 	putStr("\n2-Deletar Contato")
 	putStr("\n3-Listar Contatos")
-	putStr("\n4-Adicionar Lembrete")
-	putStr("\n5-Deletar Lembrete")
-	putStr("\n6-Exportar Contatos")
-	putStr("\n7-Exportar Lembretes")
-	putStr("\n8-Importar Arquivo Contatos")
-	putStr("\n9-Importar Arquivo Lembretes")
+	putStr("\n4-Buscar Contatos")
+	putStr("\n5-Adicionar Lembrete")
+	putStr("\n6-Deletar Lembrete")
+	putStr("\n7-Exportar Contatos")
+	putStr("\n8-Exportar Lembretes")
+	putStr("\n9-Importar Arquivo Contatos")
+	putStr("\n10-Importar Arquivo Lembretes")
 	putStr("\n0-Sair")
 	putStr("\n\nDigite a opcao: ")
 	
@@ -25,37 +26,58 @@ menu persons = do
 
 	where action c
 		|c=='1' = do
-			putStr("\nDigite o nome do contato: ")
+			putStr("Digite o nome do contato: ")
+			name <- getLine
+			name <- getLine
 
-			name <- getLine
-			{-Nao faco ideia do porque, mas so com um
-			getLine ele pula direto para o telephone-}
-			name <- getLine
-			putStr("\nDigite o numero do contato: ")
+			putStr("Digite o numero do contato: ")
 			tel <- getLine
 			
 			let person = toPerson name tel
 			let agenda = insertPerson persons person
 
-			putStr ("Contato adicionado " ++ show name++"\n")
+			putStr ("Contato adicionado: " ++show name++"\n")
 			menu agenda
 
-		|c=='2' = do
-			putStr("\nDigite o nome do contato a ser deletado")
-			
+		{-|c=='2' = do
+			putStr("Digite o nome do contato a ser deletado: ")
 			name <- getLine
 			name <- getLine
-			putStr("\nDigite o numero do contato: ")
+
+			putStr("Digite o numero do contato: ")
 			tel <- getLine
 			
 			let person = toPerson name tel
-			putStr("\nDigite o numero do contato: ")
+		-}
 
 		|c=='3' = do
 			putStr (show persons)
 			menu persons
 
+		|c=='4' = do
+			putStr("Digite o nome do contato: ")
+
+			name <- getLine
+			name <- getLine
+
+			putStr("Digite o numero do contato: ")
+ 			tel <- getLine
+ 	 
+ 			let person = toPerson name tel
+ 	 
+ 			let isElem = searchPerson persons person
+ 			if isElem 
+ 			     then putStr ("Contato encontrado: " ++ show name++"\n")
+ 			     else do putStr ("Contato nao encontrado")
+
+			menu persons
+
+		
+		|c=='7' = do
+			exportPersons persons
+			menu persons
+
 		|c=='0' = do
-			putStr("Tchau...\n")
+			putStrLn("Fim do programa")
 
 		|otherwise = menu persons
