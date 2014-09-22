@@ -21,7 +21,7 @@ deleteFromPersons [] p = []
 deleteFromPersons ps p = delete p ps
 
 exportPersons :: Persons -> IO()
-exportPersons ps = writeFile "OutPersons.txt" (show ps)
+exportPersons ps = writeFile "OutPersons.txt" (printPersons ps)
 
 searchPerson :: Eq a => [a] -> a -> Bool
 searchPerson ps p = elem p ps
@@ -42,7 +42,7 @@ printPersons (h:t) = printPerson h ++ "\n" ++ printPersons t
 {- parse error on input ‘if’
 
 importPersons :: Handler -> Persons -> Persons
-importPersons inh ps = 
+importPersons inh p = 
 	do ineof <- hIsEOF inh
 		if ineof
 			then return ps
