@@ -1,19 +1,19 @@
 module Main where
 
 import System.IO
-import Agenda (toPerson, insertPerson, deleteFromPersons)
+import Agenda (Persons, toPerson, insertPerson, deleteFromPersons)
 
-main :: IO()
-main = do
+menu :: Persons -> IO()
+menu persons = do
 	hSetBuffering stdin NoBuffering
 	putStr("\n\tMenu:")
 	putStr("\n1-Adicionar Contato")
 	putStr("\n2-Deletar Contato")
-	putStr("\n3-Adicionar Lembrete")
-	putStr("\n4-Deletar Lembrete")
-	putStr("\n5-Exportar Contatos")
-	putStr("\n6-Exportar Lembretes")
-	putStr("\n7-Exportar Tudo")
+	putStr("\n3-Listar Contatos")
+	putStr("\n4-Adicionar Lembrete")
+	putStr("\n5-Deletar Lembrete")
+	putStr("\n6-Exportar Contatos")
+	putStr("\n7-Exportar Lembretes")
 	putStr("\n8-Importar Arquivo Contatos")
 	putStr("\n9-Importar Arquivo Lembretes")
 	putStr("\n0-Sair")
@@ -35,10 +35,10 @@ main = do
 			tel <- getLine
 			
 			let person = toPerson name tel
-			let agenda = insertPerson agenda person
+			let agenda = insertPerson persons person
 
 			putStr ("Contato adicionado " ++ show name++"\n")
-			main	
+			menu agenda
 
 		|c=='2' = do
 			putStr("\nDigite o nome do contato a ser deletado")
@@ -50,16 +50,12 @@ main = do
 			
 			let person = toPerson name tel
 			putStr("\nDigite o numero do contato: ")
-		{-|c=='8' = do
-			putStr("\nDigite o nome do arquivo")
-			file <- getLine
-			inpCont <- readFile file 
-			contacts = parserContacts inpCont
-			-}
 
-		|c=='5' = do
-			writeFile "OutContacts.txt" agenda
-			main
+		|c=='3' = do
+			putStr (show persons)
+			menu persons
 
 		|c=='0' = do
 			putStr("Tchau...\n")
+
+		|otherwise = menu persons

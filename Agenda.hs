@@ -1,4 +1,4 @@
-module Agenda (toContact, insertContact, deleteFromContacts, toPerson, insertPerson, deleteFromPersons) where
+module Agenda (Persons, toContact, insertContact, deleteFromContacts, toPerson, insertPerson, deleteFromPersons) where
 
 import System.IO
 import Data.List(delete)
