@@ -1,4 +1,4 @@
-module Agenda (Persons, toPerson, insertPerson, deleteFromPersons, exportPersons, searchPerson) where
+module Agenda (Persons, toPerson, insertPerson, deleteFromPersons, exportPersons, searchPerson, printNamePerson, printTelPerson) where
 
 import System.IO
 import Data.List(delete)
@@ -25,3 +25,9 @@ exportPersons ps = writeFile "OutPersons.txt" (show ps)
 
 searchPerson :: Eq a => [a] -> a -> Bool
 searchPerson ps p = elem p ps
+
+printNamePerson :: Person -> IO()
+printNamePerson p = putStr (name p)
+
+printTelPerson :: Person -> IO()
+printTelPerson p = putStr (telephone p)
