@@ -1,7 +1,16 @@
 module Main where
 
 import System.IO
-import Agenda (Persons, toPerson, insertPerson, deleteFromPersons, exportPersons, searchPerson, printPersons)
+
+import Agenda 
+       ( Persons
+       , toPerson
+       , insertPerson
+       , deleteFromPersons
+       , exportPersons
+       , searchPerson
+       , printPersons
+       )
 
 menu :: Persons -> IO()
 menu persons = do
@@ -11,35 +20,32 @@ menu persons = do
 	putStr("\n2-Deletar Contato")
 	putStr("\n3-Listar Contatos")
 	putStr("\n4-Buscar Contatos")
-	putStr("\n5-Adicionar Lembrete")
-	putStr("\n6-Deletar Lembrete")
-	putStr("\n7-Exportar Contatos")
-	putStr("\n8-Exportar Lembretes")
-	putStr("\n9-Importar Arquivo Contatos")
-	putStr("\n10-Importar Arquivo Lembretes")
+	putStr("\n5-Exportar Contatos")
+	putStr("\n6-Importar Arquivo com Contatos")
 	putStr("\n0-Sair")
 	putStr("\n\nDigite a opcao: ")
 	
-	c<-getChar
-	putStr("\n")
+	c <- getChar
+	putStr "\n"
 	action c
 
 	where action c
-		|c=='1' = do
+		|c == '1' = do
 			putStr("Digite o nome do contato: ")
 			name <- getLine
 			name <- getLine
 
 			putStr("Digite o numero do contato: ")
-			tel <- getLine
+      			tel <- getLine
 			
 			let person = toPerson name tel
 			let agenda = insertPerson persons person
 
-			putStr ("Contato adicionado: " ++show name++"\n")
-			menu agenda
+			putStr ("Contato adicionado: " ++show name++ "\n")
+		        menu agenda
 
-		|c=='2' = do
+		|c == '2' = do
+
 			putStr("Digite o nome do contato a ser deletado: ")
 			name <- getLine
 			name <- getLine
@@ -54,14 +60,15 @@ menu persons = do
 			menu aux
 
 		|c=='3' = do
-			putStr ("Nome Telefone\n\n")
+			putStr ("Nome Telefone\n")
 			putStr $ printPersons persons
+
 			menu persons
 
-		|c=='4' = do
+		|c == '4' = do
 			putStr("Digite o nome do contato: ")
 
-			name <- getLine
+   			name <- getLine
 			name <- getLine
 
 			putStr("Digite o numero do contato: ")
@@ -69,19 +76,19 @@ menu persons = do
  	 
  			let person = toPerson name tel
  	 
- 			let isElem = searchPerson persons person
+ 		        let isElem = searchPerson persons person
  			if isElem 
- 			     then putStr ("Contato encontrado: " ++ show name++"\n")
- 			     else do putStr ("Contato nao encontrado")
+ 				then putStr ("Contato encontrado: " ++ show name++"\n")
+ 				else do putStrLn ("Contato nao encontrado")
 
 			menu persons
 
 		
-		|c=='7' = do
+		|c == '5' = do
 			exportPersons persons
 			menu persons
 
-		|c=='0' = do
-			putStrLn("Fim do programa")
+		|c == '0' = do
+			putStrLn ("Fim do programa")
 
 		|otherwise = menu persons
