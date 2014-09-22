@@ -1,11 +1,22 @@
-module Agenda (Persons, toPerson, insertPerson, deleteFromPersons, exportPersons, searchPerson, printNamePerson, printTelPerson, printPerson, printPersons) where
+﻿module Agenda 
+( Persons
+, toPerson
+, insertPerson
+, deleteFromPersons
+, exportPersons
+, searchPerson
+, printNamePerson
+, printTelPerson
+, printPerson
+, printPersons
+) where
 
 import System.IO
 import Data.List(delete)
 
 data Person = Person{ name :: String
-					, telephone :: String
-					}deriving(Show, Eq)
+		    , telephone :: String
+		    } deriving(Show, Eq)
 
 type Persons = [Person]
 
@@ -21,7 +32,7 @@ deleteFromPersons [] p = []
 deleteFromPersons ps p = delete p ps
 
 exportPersons :: Persons -> IO()
-exportPersons ps = writeFile "OutPersons.txt" (printPersons ps)
+exportPersons ps = writeFile "PhoneBook.txt" (printPersons ps)
 
 searchPerson :: Eq a => [a] -> a -> Bool
 searchPerson ps p = elem p ps
@@ -33,14 +44,13 @@ printTelPerson :: Person -> String
 printTelPerson p = telephone p
 
 printPerson :: Person -> String
-printPerson p = printNamePerson p ++ " " ++ printTelPerson p
+printPerson p = printNamePerson p ++ "\t" ++ printTelPerson p
 
 printPersons :: Persons -> String
 printPersons [] = ""
 printPersons (h:t) = printPerson h ++ "\n" ++ printPersons t
 
-{- parse error on input ‘if’
-
+{-
 importPersons :: Handler -> Persons -> Persons
 importPersons inh p = 
 	do ineof <- hIsEOF inh

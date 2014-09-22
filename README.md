@@ -1,13 +1,7 @@
+﻿=======
 Haskell
 =======
 
-ToDo list -
--Agenda.hs
-	Importar um arquivo e armazenar Persons
-	*Fazer uma impressão melhor para exportar e para imprimir na tela
-
--Reminder.hs
-	Tudo '-'
-
--Main.hs
-	Conseguir manter a variavel com conteudo fixo
+Agenda telefônica implementada na linguagem 
+Haskell com as funções de adicionar, deletar,
+listar, buscar e exportar contatos.

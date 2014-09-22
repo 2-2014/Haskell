@@ -15,15 +15,18 @@ import Agenda
 menu :: Persons -> IO()
 menu persons = do
 	hSetBuffering stdin NoBuffering
-	putStr("\n\tMenu:")
-	putStr("\n1-Adicionar Contato")
-	putStr("\n2-Deletar Contato")
-	putStr("\n3-Listar Contatos")
-	putStr("\n4-Buscar Contatos")
-	putStr("\n5-Exportar Contatos")
-	putStr("\n6-Importar Arquivo com Contatos")
-	putStr("\n0-Sair")
-	putStr("\n\nDigite a opcao: ")
+	putStrLn("\n -----------------------------------")
+	putStrLn("|\t\tMENU                |")
+	putStrLn("|-----------------------------------|")
+	putStrLn("| 1-Adicionar Contato               |")
+	putStrLn("| 2-Deletar Contato                 |")
+	putStrLn("| 3-Listar Contatos                 |")
+	putStrLn("| 4-Buscar Contatos                 |")
+	putStrLn("| 5-Exportar Arquivo com Contatos   |")
+	putStrLn("| 6-Importar Arquivo com Contatos   |")
+	putStrLn("| 0-Sair                            |")
+	putStrLn(" -----------------------------------")
+	putStr("\nDigite a opcao: ")
 	
 	c <- getChar
 	putStr "\n"
@@ -60,7 +63,7 @@ menu persons = do
 			menu aux
 
 		|c=='3' = do
-			putStr ("Nome Telefone\n")
+			putStr ("Nome\tTelefone\n")
 			putStr $ printPersons persons
 
 			menu persons
